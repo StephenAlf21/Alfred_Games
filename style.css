@@ -1,91 +1,182 @@
 body {
-            background-color: #0B0C10;
-            color: #C5C6C7;
-            overflow-x: hidden;
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0B0C10;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #45A29E;
-            border-radius: 4px;
-        }
+    background-color: #050505;
+    color: #C5C6C7;
+    overflow-x: hidden;
+}
 
-        .glass-panel {
-            background: rgba(31, 40, 51, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(102, 252, 241, 0.1);
-        }
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #00f0ff;
+}
 
-        .neon-text {
-            text-shadow: 0 0 10px rgba(102, 252, 241, 0.5);
-        }
-        
-        
+.glass-panel {
+    background: rgba(20, 20, 25, 0.7);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
 
-        @keyframes scanline {
-            0% { top: -10%; }
-            100% { top: 110%; }
-        }
+.neon-text {
+    text-shadow: 0 0 10px rgba(102, 252, 241, 0.5);
+}
 
-        .cursor-blink {
-            animation: blink 1s step-end infinite;
-        }
+.neon-text-cyan {
+    text-shadow: 0 0 10px rgba(0, 240, 255, 0.6), 0 0 20px rgba(0, 240, 255, 0.4);
+}
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
+.neon-text-purple {
+    text-shadow: 0 0 10px rgba(188, 19, 254, 0.6);
+}
 
-        .hero-elements {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
-        }
+/* Glitch wrapper for headings/text */
+.glitch-wrapper {
+    position: relative;
+    display: inline-block;
+}
 
-        .loaded .hero-elements {
-            opacity: 1;
-            transform: translateY(0);
-        }
+.glitch-wrapper::before,
+.glitch-wrapper::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+}
 
-        .animate-float {
-            animation: float 3s ease-in-out infinite alternate;
-        }
+.glitch-wrapper:hover::before {
+    color: #00f0ff;
+    z-index: -1;
+    animation: glitch-anim-1 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+    opacity: 1;
+}
 
-        .animate-float-delayed {
-            animation: float-delayed 4s ease-in-out infinite alternate;
-        }
+.glitch-wrapper:hover::after {
+    color: #bc13fe;
+    z-index: -2;
+    animation: glitch-anim-2 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+    opacity: 1;
+}
 
-        @keyframes float {
-            0% { transform: translateY(-20px); }
-            100% { transform: translateY(20px); }
-        }
+@keyframes glitch-anim-1 {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
 
-        @keyframes float-delayed {
-            0% { transform: translateY(20px); }
-            100% { transform: translateY(-20px); }
-        }
+@keyframes glitch-anim-2 {
+    0% { transform: translate(0); }
+    20% { transform: translate(2px, -2px); }
+    40% { transform: translate(2px, 2px); }
+    60% { transform: translate(-2px, 2px); }
+    80% { transform: translate(-2px, -2px); }
+    100% { transform: translate(0); }
+}
 
-        /* Game info modal animations */
-        @keyframes modalFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+/* Scanline Overlay */
+.scanline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0) 50%,
+        rgba(0, 0, 0, 0.1) 50%,
+        rgba(0, 0, 0, 0.1)
+    );
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 40;
+    opacity: 0.3;
+}
 
-        @keyframes panelSlideInRight {
-            from { transform: translateX(40px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
+.cursor-blink {
+    animation: blink 1s step-end infinite;
+}
 
-        .modal-fade-in {
-            animation: modalFadeIn 0.25s ease-out;
-        }
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
 
-        .panel-slide-in-right {
-            animation: panelSlideInRight 0.3s ease-out;
-        }
+.hero-elements {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+}
+
+.loaded .hero-elements {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite alternate;
+}
+
+.animate-float-delayed {
+    animation: float-delayed 4s ease-in-out infinite alternate;
+}
+
+@keyframes float {
+    0% { transform: translateY(-20px); }
+    100% { transform: translateY(20px); }
+}
+
+@keyframes float-delayed {
+    0% { transform: translateY(20px); }
+    100% { transform: translateY(-20px); }
+}
+
+/* Game info modal animations */
+@keyframes modalFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes panelSlideInRight {
+    from { transform: translateX(40px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.modal-fade-in {
+    animation: modalFadeIn 0.25s ease-out;
+}
+
+.panel-slide-in-right {
+    animation: panelSlideInRight 0.3s ease-out;
+}
+
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.animate-marquee {
+    animation: marquee 20s linear infinite;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}

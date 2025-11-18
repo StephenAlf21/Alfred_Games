@@ -4,12 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Support | Alfred Games</title>
-
+    
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
-
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3ae.png">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Config -->
     <script>
         if (window.tailwind) {
             tailwind.config = {
@@ -21,236 +27,396 @@
                         },
                         colors: {
                             brand: {
-                                dark: '#0B0C10',
+                                dark: '#050505',
+                                panel: '#0f1115',
                                 gray: '#1F2833',
-                                cyan: '#66FCF1',
+                                cyan: '#00f0ff',
                                 teal: '#45A29E',
-                                purple: '#C586C0'
+                                purple: '#bc13fe',
+                                yellow: '#fceebb'
                             }
                         },
                         backgroundImage: {
-                            'grid-pattern': "linear-gradient(to right, #1f2833 1px, transparent 1px), linear-gradient(to bottom, #1f2833 1px, transparent 1px)",
+                            'grid-pattern': "linear-gradient(to right, #1f2833 1px, transparent 1px), linear-gradient(to bottom, #1f2833 1px, transparent 1px)"
+                        },
+                        animation: {
+                            'spin-slow': 'spin 12s linear infinite'
                         }
                     }
                 }
             };
+        } else {
+            console.warn('Tailwind CDN not loaded yet; config skipped.');
         }
     </script>
-
+    
+    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased relative selection:bg-brand-cyan selection:text-brand-dark">
 
+    <!-- CRT Scanline Effect -->
+    <div class="scanline"></div>
+
     <!-- Initial Loader -->
     <div id="loader" class="fixed inset-0 z-[100] bg-brand-dark flex items-center justify-center flex-col font-mono text-brand-cyan">
-        <div class="text-2xl md:text-4xl font-bold">
+        <div class="text-2xl md:text-4xl font-bold tracking-widest glitch-wrapper" data-text="INITIALIZING SUPPORT...">
             <span id="loader-text"></span><span class="cursor-blink">_</span>
         </div>
-        <div class="mt-4 w-64 h-1 bg-brand-gray rounded-full overflow-hidden">
-            <div id="loader-bar" class="h-full bg-brand-cyan w-0"></div>
+        <div class="mt-6 w-64 h-0.5 bg-gray-800 relative overflow-hidden">
+            <div id="loader-bar" class="absolute left-0 top-0 h-full bg-brand-cyan w-0 shadow-[0_0_10px_#00f0ff]"></div>
         </div>
     </div>
 
     <!-- Navigation -->
-    <nav class="fixed w-full z-40 top-0 transition-all duration-300 p-4" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center glass-panel rounded-full px-6 py-3">
-            <a href="index.html" class="text-xl font-bold font-mono tracking-tighter text-white flex items-center gap-2">
-                <i class="ph ph-robot text-brand-cyan text-2xl"></i>
-                ALFRED<span class="text-brand-teal">GAMES</span>
+    <nav class="fixed w-full z-50 top-0 transition-all duration-300 p-4" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass-panel rounded-full px-6 py-3 border-t border-brand-cyan/20">
+            <a href="index.html" class="text-xl font-bold font-mono tracking-tighter text-white flex items-center gap-3 group">
+                <div class="relative w-8 h-8 flex items-center justify-center bg-brand-cyan/10 rounded border border-brand-cyan/30 group-hover:border-brand-cyan transition-colors">
+                    <i class="ph ph-robot text-brand-cyan text-xl"></i>
+                </div>
+                <span class="group-hover:text-brand-cyan transition-colors">ALFRED<span class="text-gray-500">GAMES</span></span>
             </a>
-            <div class="hidden md:flex gap-8 font-mono text-sm text-gray-300">
-                <a href="about.html" class="hover:text-brand-cyan transition-colors">About</a>
-                <a href="index.html#games" class="hover:text-brand-cyan transition-colors">Projects</a>
-                <a href="support.html" class="hover:text-brand-cyan transition-colors">Support</a>
+            
+            <!-- Desktop Links -->
+            <div class="hidden md:flex gap-8 font-mono text-xs tracking-widest text-gray-400 items-center">
+                <a href="about.html" class="hover:text-white hover:neon-text-cyan transition-all duration-300 flex items-center gap-2">
+                    <i class="ph ph-user text-brand-cyan text-sm"></i>
+                    <span>ABOUT</span>
+                </a>
+                <a href="#contact" class="text-white neon-text-cyan transition-all duration-300 flex items-center gap-2">
+                    <i class="ph ph-life-buoy text-brand-cyan text-sm"></i>
+                    <span>SUPPORT</span>
+                </a>
             </div>
-            <a href="index.html#games" class="hidden md:block bg-brand-cyan/10 text-brand-cyan border border-brand-cyan px-4 py-1 rounded hover:bg-brand-cyan hover:text-brand-dark transition-all duration-300 font-mono text-sm">
-                PLAY NOW
-            </a>
-            <button class="md:hidden text-brand-cyan text-2xl"><i class="ph ph-list"></i></button>
+
+            <div class="hidden md:flex items-center gap-4">
+                <div class="h-2 w-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_#22c55e]"></div>
+                <span class="text-xs font-mono text-green-500">SYSTEM ONLINE</span>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-brand-cyan text-2xl hover:text-white transition-colors">
+                <i class="ph ph-list"></i>
+            </button>
         </div>
     </nav>
 
-    <main class="pt-28 pb-24 bg-brand-dark min-h-screen">
-        <section class="max-w-6xl mx-auto px-4">
-            <h1 class="text-3xl md:text-5xl font-black text-white mb-4">CONTACT &amp; SUPPORT</h1>
-            <p class="text-brand-cyan font-mono text-xs tracking-[0.3em] uppercase mb-10">Get in touch</p>
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-40 bg-brand-dark/95 backdrop-blur-xl transform translate-x-full transition-transform duration-300 flex flex-col items-center justify-center space-y-8">
+        <button id="close-menu-btn" class="absolute top-8 right-8 text-gray-400 hover:text-white text-3xl">
+            <i class="ph ph-x"></i>
+        </button>
+        <a href="about.html" class="mobile-link text-2xl font-mono font-bold text-white hover:text-brand-cyan flex items-center gap-3">
+            <i class="ph ph-user text-brand-cyan"></i>
+            <span>ABOUT</span>
+        </a>
+        <a href="#contact" class="mobile-link text-2xl font-mono font-bold text-white hover:text-brand-cyan flex items-center gap-3">
+            <i class="ph ph-life-buoy text-brand-cyan"></i>
+            <span>SUPPORT</span>
+        </a>
+    </div>
 
-            <div class="grid gap-10 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1.6fr)] items-start">
-                <!-- Support Channels -->
-                <div class="space-y-6">
-                    <div class="glass-panel rounded-xl border border-gray-700 p-6">
-                        <h2 class="font-mono text-xs text-brand-cyan tracking-[0.2em] uppercase mb-3">Support Types</h2>
-                        <ul class="space-y-3 text-sm text-gray-300">
-                            <li class="flex gap-3">
-                                <i class="ph ph-bug text-brand-purple text-xl mt-0.5"></i>
+    <!-- Main Content -->
+    <main class="relative pt-32 pb-24 min-h-screen overflow-hidden">
+        <!-- Background Neural Canvas -->
+        <canvas id="neural-canvas" class="fixed inset-0 z-0 opacity-30 pointer-events-none"></canvas>
+        
+        <!-- Gradient Vignettes -->
+        <div class="fixed inset-0 bg-gradient-to-b from-transparent via-transparent to-brand-dark z-0 pointer-events-none"></div>
+        
+        <section class="relative z-10 max-w-6xl mx-auto px-4">
+            
+            <!-- Header -->
+            <div class="mb-16 hero-elements opacity-0 translate-y-10">
+                <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-brand-panel border border-brand-purple/30 text-brand-purple text-xs font-mono mb-6 shadow-[0_0_15px_rgba(188,19,254,0.15)]">
+                    <i class="ph-fill ph-life-buoy animate-spin-slow"></i>
+                    <span>GET IN TOUCH</span>
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black text-white tracking-tighter mb-4">
+                    CONTACT <br>
+                    <span class="glitch-wrapper text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-white neon-text-cyan" data-text="&amp; SUPPORT">&amp; SUPPORT</span>
+                </h1>
+            </div>
+
+            <div class="grid gap-12 lg:grid-cols-[1.4fr_1.6fr] items-start">
+                
+                <!-- Left Column: Info -->
+                <div class="space-y-8 hero-elements opacity-0 translate-y-10">
+                    <!-- Support Types -->
+                    <div class="glass-panel rounded-xl border border-gray-700/50 p-8 group hover:border-brand-cyan/30 transition-colors">
+                        <h2 class="font-mono text-xs text-brand-cyan tracking-[0.2em] uppercase mb-6 flex items-center gap-2">
+                            <i class="ph-bold ph-sliders-horizontal"></i> Support Channels
+                        </h2>
+                        <ul class="space-y-6">
+                            <li class="flex gap-4">
+                                <div class="w-10 h-10 rounded bg-brand-panel border border-brand-purple/30 flex items-center justify-center text-brand-purple shrink-0">
+                                    <i class="ph-fill ph-bug text-xl"></i>
+                                </div>
                                 <div>
-                                    <p class="font-semibold text-white">Bug Reports</p>
-                                    <p class="text-gray-400 text-xs">Found something broken in Coin Catcher 2D or another build? Share your platform, version, and steps to reproduce.</p>
+                                    <p class="font-bold text-white font-mono text-sm">Bug Reports</p>
+                                    <p class="text-gray-500 text-xs mt-1 leading-relaxed">Found something broken in Coin Catcher 2D? Share your platform, version, and steps to reproduce.</p>
                                 </div>
                             </li>
-                            <li class="flex gap-3">
-                                <i class="ph ph-lightbulb text-brand-cyan text-xl mt-0.5"></i>
+                            <li class="flex gap-4">
+                                <div class="w-10 h-10 rounded bg-brand-panel border border-brand-cyan/30 flex items-center justify-center text-brand-cyan shrink-0">
+                                    <i class="ph-fill ph-lightbulb text-xl"></i>
+                                </div>
                                 <div>
-                                    <p class="font-semibold text-white">Feature Requests</p>
-                                    <p class="text-gray-400 text-xs">Have an idea for a power-up, mode, or quality-of-life tweak? Pitch it here.</p>
+                                    <p class="font-bold text-white font-mono text-sm">Feature Requests</p>
+                                    <p class="text-gray-500 text-xs mt-1 leading-relaxed">Have an idea for a power-up, mode, or quality-of-life tweak? Pitch it here.</p>
                                 </div>
                             </li>
-                            <li class="flex gap-3">
-                                <i class="ph ph-hand-heart text-brand-teal text-xl mt-0.5"></i>
+                            <li class="flex gap-4">
+                                <div class="w-10 h-10 rounded bg-brand-panel border border-brand-teal/30 flex items-center justify-center text-brand-teal shrink-0">
+                                    <i class="ph-fill ph-heart text-xl"></i>
+                                </div>
                                 <div>
-                                    <p class="font-semibold text-white">General Feedback</p>
-                                    <p class="text-gray-400 text-xs">Thoughts on pacing, difficulty, aesthetics, or anything else that can help refine future updates.</p>
+                                    <p class="font-bold text-white font-mono text-sm">General Feedback</p>
+                                    <p class="text-gray-500 text-xs mt-1 leading-relaxed">Thoughts on pacing, difficulty, aesthetics, or anything else to refine future updates.</p>
                                 </div>
                             </li>
                         </ul>
                     </div>
 
-                    <div class="glass-panel rounded-xl border border-gray-700 p-6">
-                        <h2 class="font-mono text-xs text-brand-cyan tracking-[0.2em] uppercase mb-3">Direct Contact</h2>
-                        <p class="text-gray-400 text-sm mb-3">
-                            Prefer to reach out directly instead of using the form? You can get in touch via:
+                    <!-- Direct Contact -->
+                    <div class="glass-panel rounded-xl border border-gray-700/50 p-8">
+                        <h2 class="font-mono text-xs text-brand-cyan tracking-[0.2em] uppercase mb-4">Direct Link</h2>
+                        <p class="text-gray-400 text-sm mb-4">
+                            Prefer to reach out directly? You can ping the studio via:
                         </p>
-                        <ul class="space-y-2 text-sm text-gray-300">
-                            <li class="flex items-center gap-2">
-                                <i class="ph ph-envelope-simple text-brand-cyan"></i>
-                                <span>support@alfredgames.dev (placeholder)</span>
+                        <ul class="space-y-3 text-sm text-gray-300 font-mono">
+                            <li class="flex items-center gap-3 p-3 bg-brand-panel rounded border border-gray-800 hover:border-brand-cyan transition-colors">
+                                <i class="ph-fill ph-envelope-simple text-brand-cyan"></i>
+                                <span>support@alfredgames.dev</span>
                             </li>
-                            <li class="flex items-center gap-2">
-                                <i class="ph ph-discord-logo text-brand-purple"></i>
-                                <span>Community links via social profiles</span>
+                            <li class="flex items-center gap-3 p-3 bg-brand-panel rounded border border-gray-800 hover:border-brand-purple transition-colors">
+                                <i class="ph-fill ph-discord-logo text-brand-purple"></i>
+                                <span>Discord Community</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <!-- Contact Form -->
-                <div class="glass-panel rounded-xl border border-gray-700 p-6 md:p-8">
-                    <h2 class="font-mono text-xs text-brand-cyan tracking-[0.2em] uppercase mb-4">Submit a Ticket</h2>
-                    <p class="text-gray-400 text-sm mb-6">
-                        Fill out the details below and Alfred Games will review as soon as possible. This form is front-end only, so feel free to adapt it later to your backend or email workflow.
-                    </p>
-                    <form class="space-y-4" onsubmit="event.preventDefault();">
-                        <div>
-                            <label class="block text-xs font-mono text-gray-400 mb-1">Name</label>
-                            <input type="text" class="w-full bg-brand-gray border border-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:border-brand-cyan text-sm" placeholder="Player_One.exe">
+                <!-- Right Column: Form -->
+                <div class="hero-elements opacity-0 translate-y-10">
+                    <div class="glass-panel rounded-xl border border-gray-700/50 p-8 md:p-10 relative overflow-hidden">
+                        <!-- Form Decoration -->
+                        <div class="absolute top-0 right-0 p-4 opacity-5 text-white">
+                            <i class="ph-fill ph-paper-plane-tilt text-9xl"></i>
                         </div>
-                        <div>
-                            <label class="block text-xs font-mono text-gray-400 mb-1">Email</label>
-                            <input type="email" class="w-full bg-brand-gray border border-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:border-brand-cyan text-sm" placeholder="you@example.com">
-                        </div>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-mono text-gray-400 mb-1">Category</label>
-                                <select class="w-full bg-brand-gray border border-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:border-brand-cyan text-sm">
-                                    <option>Bug</option>
-                                    <option>Feature Request</option>
-                                    <option>Feedback</option>
-                                    <option>Other</option>
-                                </select>
+
+                        <h2 class="font-mono text-xs text-brand-cyan tracking-[0.2em] uppercase mb-4">Submit a Ticket</h2>
+                        <p class="text-gray-400 text-sm mb-8 max-w-md">
+                            Fill out the details below. This form communicates directly with our internal tracking systems.
+                        </p>
+                        
+                        <form class="space-y-6" onsubmit="event.preventDefault();">
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="block text-[10px] font-mono text-brand-cyan uppercase tracking-wider">Identify As</label>
+                                    <div class="relative">
+                                        <i class="ph ph-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
+                                        <input type="text" class="w-full bg-brand-panel border border-gray-700 text-white pl-10 pr-4 py-3 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono text-sm placeholder-gray-700 transition-all" placeholder="Player_One">
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-[10px] font-mono text-brand-cyan uppercase tracking-wider">Return Address</label>
+                                    <div class="relative">
+                                        <i class="ph ph-at absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
+                                        <input type="email" class="w-full bg-brand-panel border border-gray-700 text-white pl-10 pr-4 py-3 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono text-sm placeholder-gray-700 transition-all" placeholder="email@domain.net">
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label class="block text-xs font-mono text-gray-400 mb-1">Game / Version</label>
-                                <input type="text" class="w-full bg-brand-gray border border-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:border-brand-cyan text-sm" placeholder="Coin Catcher 2D v0.18.4">
+
+                            <div class="grid md:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="block text-[10px] font-mono text-brand-cyan uppercase tracking-wider">Category</label>
+                                    <div class="relative">
+                                        <i class="ph ph-tag absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
+                                        <select class="w-full bg-brand-panel border border-gray-700 text-white pl-10 pr-4 py-3 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono text-sm appearance-none cursor-pointer">
+                                            <option>Bug Report</option>
+                                            <option>Feature Request</option>
+                                            <option>General Feedback</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-[10px] font-mono text-brand-cyan uppercase tracking-wider">Priority</label>
+                                    <div class="relative">
+                                        <i class="ph ph-warning-circle absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
+                                        <select class="w-full bg-brand-panel border border-gray-700 text-white pl-10 pr-4 py-3 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono text-sm appearance-none cursor-pointer">
+                                            <option>Normal</option>
+                                            <option>High</option>
+                                            <option>Critical</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-mono text-gray-400 mb-1">Message</label>
-                            <textarea rows="5" class="w-full bg-brand-gray border border-gray-700 text-white px-4 py-2 rounded focus:outline-none focus:border-brand-cyan text-sm" placeholder="Describe the issue or idea in as much detail as you like."></textarea>
-                        </div>
-                        <button class="w-full bg-brand-purple text-white font-bold py-3 rounded hover:bg-opacity-80 transition-all shadow-[0_0_15px_rgba(197,134,192,0.4)] text-sm">
-                            SEND MESSAGE (DUMMY FORM)
-                        </button>
-                    </form>
+
+                            <div class="space-y-2">
+                                <label class="block text-[10px] font-mono text-brand-cyan uppercase tracking-wider">Subject</label>
+                                <div class="relative">
+                                    <i class="ph ph-chat-circle-dots absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
+                                    <input type="text" class="w-full bg-brand-panel border border-gray-700 text-white pl-10 pr-4 py-3 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono text-sm placeholder-gray-700 transition-all" placeholder="Short summary">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-[10px] font-mono text-brand-cyan uppercase tracking-wider">Detailed Log</label>
+                                <div class="relative">
+                                    <textarea class="w-full bg-brand-panel border border-gray-700 text-white px-4 py-3 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono text-sm placeholder-gray-700 transition-all min-h-[140px]" placeholder="Include platform, build version, and steps to reproduce if reporting a bug."></textarea>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-gray-800">
+                                <div class="flex items-center gap-2 text-xs text-gray-500 font-mono">
+                                    <i class="ph ph-lock-key-open text-brand-cyan"></i>
+                                    <span>Data used only for support context.</span>
+                                </div>
+                                <button class="inline-flex items-center justify-center gap-2 bg-brand-cyan text-brand-dark font-bold px-6 py-3 rounded hover:bg-white transition-all duration-300 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                                    <i class="ph-fill ph-paper-plane-tilt"></i>
+                                    <span>SEND PACKET</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- Initialize Connection / Newsletter -->
+        <section id="contact" class="py-32 relative overflow-hidden">
+            <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+                <div class="inline-block mb-6 p-4 rounded-full bg-brand-panel border border-gray-800">
+                    <i class="ph-duotone ph-paper-plane-tilt text-4xl text-white"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">INITIALIZE CONNECTION</h2>
+                <p class="text-gray-400 mb-10 max-w-xl mx-auto">
+                    Subscribe to the Alfred Games neural network to receive occasional packets about new builds, support updates, and devlogs.
+                </p>
+                
+                <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onsubmit="event.preventDefault(); alert('Subscribed to the network.');">
+                    <div class="relative flex-1">
+                        <i class="ph ph-envelope-simple absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
+                        <input type="email" placeholder="user@domain.net" class="w-full bg-brand-panel border border-gray-700 text-white pl-12 pr-6 py-4 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono placeholder-gray-600 transition-all">
+                    </div>
+                    <button class="bg-brand-purple text-white font-bold px-8 py-4 rounded hover:bg-opacity-90 transition-all shadow-[0_0_20px_rgba(188,19,254,0.3)] hover:shadow-[0_0_30px_rgba(188,19,254,0.5)] whitespace-nowrap">
+                        EXECUTE
+                    </button>
+                </form>
             </div>
         </section>
     </main>
 
-    <!-- Social Footer (same as index) -->
-    <footer class="py-12 bg-black border-t border-brand-gray/50">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="grid gap-10 md:grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_minmax(0,2fr)] items-start mb-10">
+    <!-- Footer (same structure as index) -->
+    <footer class="relative z-10 bg-black border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 py-12 space-y-10">
+            <div class="grid gap-10 md:grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_minmax(0,2fr)] items-start">
+                <!-- Brand / Studio -->
                 <div>
-                    <div class="flex items-center justify-center md:justify-start gap-2 mb-3">
-                        <i class="ph ph-robot text-brand-cyan text-2xl"></i>
-                        <span class="font-mono font-bold text-white tracking-tight">ALFRED<span class="text-brand-teal">GAMES</span></span>
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-9 h-9 rounded-full bg-brand-cyan/10 border border-brand-cyan/40 flex items-center justify-center">
+                            <i class="ph ph-robot text-brand-cyan text-xl"></i>
+                        </div>
+                        <div>
+                            <div class="font-mono font-bold text-white tracking-tight text-sm">ALFRED<span class="text-gray-500">GAMES</span></div>
+                            <div class="text-[11px] text-gray-500 font-mono tracking-[0.3em] uppercase">AI-Driven Indie Studio</div>
+                        </div>
                     </div>
-                    <p class="text-gray-500 text-sm text-center md:text-left max-w-md">
-                        A one-human, AI-augmented indie studio focused on tight arcade loops, rapid prototyping, and unique experiments.
-                    </p>
-                    <p class="text-gray-500 font-mono text-[0.7rem] mt-3 text-center md:text-left">
-                        Credits: Stephen (dev), GPT-5, GPT-5.1, Gemini 2.5 Pro, Suno V5.
+                    <p class="text-sm text-gray-400 max-w-md leading-relaxed">
+                        Building tightly scoped arcade experiences with a hybrid pipeline of human design and neural tooling. Zero noise, just focused gameplay experiments.
                     </p>
                 </div>
 
-                <div class="text-center md:text-left">
-                    <h4 class="text-xs font-mono tracking-[0.2em] text-gray-400 uppercase mb-4">Navigation</h4>
-                    <ul class="space-y-2 text-sm text-gray-300">
-                        <li><a href="about.html" class="hover:text-brand-cyan transition-colors">About</a></li>
-                        <li><a href="index.html#games" class="hover:text-brand-cyan transition-colors">Projects</a></li>
-                        <li><a href="support.html" class="hover:text-brand-cyan transition-colors">Support</a></li>
-                    </ul>
+                <!-- Site Navigation -->
+                <div class="text-left md:text-center">
+                    <h4 class="text-xs font-mono tracking-[0.25em] text-gray-500 uppercase mb-4">SITE MAP</h4>
+                    <div class="grid grid-cols-2 gap-x-8 gap-y-2 text-sm">
+                        <div class="flex flex-col gap-2">
+                            <a href="index.html" class="text-gray-300 hover:text-brand-cyan transition-colors flex items-center justify-start md:justify-center gap-2">
+                                <i class="ph ph-house text-brand-cyan text-xs"></i>
+                                <span>Home</span>
+                            </a>
+                            <a href="history.html" class="text-gray-300 hover:text-brand-cyan transition-colors flex items-center justify-start md:justify-center gap-2">
+                                <i class="ph ph-buildings text-brand-cyan text-xs"></i>
+                                <span>History</span>
+                            </a>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <a href="about.html" class="text-gray-400 hover:text-brand-purple transition-colors flex items-center justify-start md:justify-center gap-2">
+                                <i class="ph ph-user text-brand-purple text-xs"></i>
+                                <span>About</span>
+                            </a>
+                            <a href="support.html" class="text-gray-400 hover:text-brand-purple transition-colors flex items-center justify-start md:justify-center gap-2">
+                                <i class="ph ph-heart text-brand-purple text-xs"></i>
+                                <span>Support</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="text-center md:text-right">
-                    <h4 class="text-xs font-mono tracking-[0.2em] text-gray-400 uppercase mb-4">Social</h4>
-                    <p class="text-gray-500 text-xs md:text-sm mb-4">
-                        Follow along for devlogs, experiments, and releases.
-                    </p>
-                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-3 justify-items-center md:justify-items-end mb-1 max-w-md ml-auto">
-                        <a href="https://www.youtube.com/@zombes1892" target="_blank" rel="noopener noreferrer"
-                           class="group flex items-center gap-2 px-3 py-2 rounded-full bg-brand-gray/70 border border-gray-700 hover:border-brand-cyan hover:bg-brand-gray transition-colors">
-                            <span class="flex h-6 w-6 items-center justify-center">
-                                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/youtube.svg" alt="YouTube" class="h-5 w-5" loading="lazy">
+                <!-- Social Links -->
+                <div class="text-center">
+                    <h4 class="text-xs font-mono tracking-[0.25em] text-gray-500 uppercase mb-4">SOCIAL LINKS</h4>
+                    <div class="flex flex-wrap justify-center gap-3">
+                        <a href="https://www.youtube.com/@zombes1892" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors">
+                            <span class="w-8 h-8 rounded-full bg-[#FF0000]/10 border border-[#FF0000]/50 flex items-center justify-center">
+                                <i class="ph-fill ph-youtube-logo text-[#FF0000] text-lg"></i>
                             </span>
-                            <span class="hidden sm:inline text-xs font-mono text-gray-300 group-hover:text-white">YouTube</span>
+                            <span class="font-mono">YouTube</span>
                         </a>
-                        <a href="https://www.facebook.com/PaddleBall3D" target="_blank" rel="noopener noreferrer"
-                           class="group flex items-center gap-2 px-3 py-2 rounded-full bg-brand-gray/70 border border-gray-700 hover:border-brand-cyan hover:bg-brand-gray transition-colors">
-                            <span class="flex h-6 w-6 items-center justify-center">
-                                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/facebook.svg" alt="Facebook" class="h-5 w-5" loading="lazy">
+                        <a href="https://www.facebook.com/PaddleBall3D" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors">
+                            <span class="w-8 h-8 rounded-full bg-[#1877F2]/10 border border-[#1877F2]/50 flex items-center justify-center">
+                                <i class="ph-fill ph-facebook-logo text-[#1877F2] text-lg"></i>
                             </span>
-                            <span class="hidden sm:inline text-xs font-mono text-gray-300 group-hover:text-white">Facebook</span>
+                            <span class="font-mono">Facebook</span>
                         </a>
-                        <a href="https://www.instagram.com/zombiessteve/" target="_blank" rel="noopener noreferrer"
-                           class="group flex items-center gap-2 px-3 py-2 rounded-full bg-brand-gray/70 border border-gray-700 hover:border-brand-cyan hover:bg-brand-gray transition-colors">
-                            <span class="flex h-6 w-6 items-center justify-center">
-                                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/instagram.svg" alt="Instagram" class="h-5 w-5" loading="lazy">
+                        <a href="https://www.instagram.com/zombiessteve/" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors">
+                            <span class="w-8 h-8 rounded-full bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] border border-pink-500/60 flex items-center justify-center">
+                                <i class="ph-fill ph-instagram-logo text-white text-lg"></i>
                             </span>
-                            <span class="hidden sm:inline text-xs font-mono text-gray-300 group-hover:text-white">Instagram</span>
+                            <span class="font-mono">Instagram</span>
                         </a>
-                        <a href="https://x.com/Zombes18" target="_blank" rel="noopener noreferrer"
-                           class="group flex items-center gap-2 px-3 py-2 rounded-full bg-brand-gray/70 border border-gray-700 hover:border-brand-cyan hover:bg-brand-gray transition-colors">
-                            <span class="flex h-6 w-6 items-center justify-center">
-                                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/x.svg" alt="X" class="h-5 w-5" loading="lazy">
+                        <a href="https://x.com/Zombes18" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors">
+                            <span class="w-8 h-8 rounded-full bg-white/5 border border-white/40 flex items-center justify-center">
+                                <i class="ph-fill ph-x-logo text-white text-lg"></i>
                             </span>
-                            <span class="hidden sm:inline text-xs font-mono text-gray-300 group-hover:text-white">X</span>
+                            <span class="font-mono">X</span>
                         </a>
-                        <a href="https://bsky.app/profile/zombes18.bsky.social" target="_blank" rel="noopener noreferrer"
-                           class="group flex items-center gap-2 px-3 py-2 rounded-full bg-brand-gray/70 border border-gray-700 hover:border-brand-cyan hover:bg-brand-gray transition-colors">
-                            <span class="flex h-6 w-6 items-center justify-center">
-                                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/bluesky.svg" alt="Bluesky" class="h-5 w-5" loading="lazy">
+                        <a href="https://bsky.app/profile/zombes18.bsky.social" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors">
+                            <span class="w-8 h-8 rounded-full bg-[#1185FE]/10 border border-[#1185FE]/60 flex items-center justify-center">
+                                <i class="ph-fill ph-cloud text-[#1185FE] text-lg"></i>
                             </span>
-                            <span class="hidden sm:inline text-xs font-mono text-gray-300 group-hover:text-white">Bluesky</span>
+                            <span class="font-mono">Bluesky</span>
                         </a>
-                        <a href="https://github.com/StephenAlf21/Alfred_Games" target="_blank" rel="noopener noreferrer"
-                           class="group flex items-center gap-2 px-3 py-2 rounded-full bg-brand-gray/70 border border-gray-700 hover:border-brand-cyan hover:bg-brand-gray transition-colors">
-                            <span class="flex h-6 w-6 items-center justify-center">
-                                <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg" alt="GitHub" class="h-5 w-5" loading="lazy">
+                        <a href="https://github.com/StephenAlf21/Alfred_Games" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-sm text-gray-300 hover:text-white transition-colors">
+                            <span class="w-8 h-8 rounded-full bg-white/5 border border-white/40 flex items-center justify-center">
+                                <i class="ph-fill ph-github-logo text-white text-lg"></i>
                             </span>
-                            <span class="hidden sm:inline text-xs font-mono text-gray-300 group-hover:text-white">GitHub</span>
+                            <span class="font-mono">GitHub</span>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <p class="text-gray-600 font-mono text-xs text-center mt-6 border-t border-brand-gray/40 pt-4">
-                © 2024 Alfred Games. Built with <span class="text-brand-purple">Human Heart</span> &amp; <span class="text-brand-cyan">Artificial Intelligence</span>.
-            </p>
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-t border-gray-900 pt-6">
+                <p class="text-gray-600 font-mono text-[11px]">
+                    ALFRED GAMES STUDIO &copy; 2024 • Crafted in Unity &amp; Tailwind
+                </p>
+                <p class="text-gray-700 font-mono text-[10px] uppercase tracking-[0.2em]">
+                    No cookies. No tracking. Just code.
+                </p>
+            </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
