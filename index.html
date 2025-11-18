@@ -12,98 +12,13 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tailwind Config -->
-    <script>
-        if (window.tailwind) {
-            tailwind.config = {
-                theme: {
-                    extend: {
-                        fontFamily: {
-                            sans: ['Inter', 'sans-serif'],
-                            mono: ['JetBrains Mono', 'monospace'],
-                        },
-                        colors: {
-                            brand: {
-                                dark: '#0B0C10',
-                                gray: '#1F2833',
-                                cyan: '#66FCF1',
-                                teal: '#45A29E',
-                                purple: '#C586C0' // VS Code purple reference
-                            }
-                        },
-                        backgroundImage: {
-                            'grid-pattern': "linear-gradient(to right, #1f2833 1px, transparent 1px), linear-gradient(to bottom, #1f2833 1px, transparent 1px)",
-                        }
-                    }
-                }
-            };
-        } else {
-            console.warn('Tailwind CDN not loaded yet; config skipped.');
-        }
-    </script>
     
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <!-- Anime.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 
-    <style>
-        body {
-            background-color: #0B0C10;
-            color: #C5C6C7;
-            overflow-x: hidden;
-        }
-        
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0B0C10;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #45A29E;
-            border-radius: 4px;
-        }
 
-        .glass-panel {
-            background: rgba(31, 40, 51, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(102, 252, 241, 0.1);
-        }
-
-        .neon-text {
-            text-shadow: 0 0 10px rgba(102, 252, 241, 0.5);
-        }
-        
-        .scanline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background: rgba(102, 252, 241, 0.1);
-            opacity: 0.4;
-            animation: scanline 6s linear infinite;
-            pointer-events: none;
-            z-index: 50;
-        }
-
-        @keyframes scanline {
-            0% { top: -10%; }
-            100% { top: 110%; }
-        }
-
-        .cursor-blink {
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="antialiased relative selection:bg-brand-cyan selection:text-brand-dark">
 
@@ -309,8 +224,7 @@
                             <div class="flex flex-col">
                                 <i class="ph ph-paint-brush text-brand-cyan text-2xl mb-2"></i>
                                 <h4 class="font-bold text-white">AI Art</h4>
-                                <p class="text-xs text-gray-500">Unique aesthetics</p>
-                            </div>
+                                <p class="text-xs text-gray-500">Unique aesthetics</p>                            </div>
                             <div class="flex flex-col">
                                 <i class="ph ph-desktop text-brand-cyan text-2xl mb-2"></i>
                                 <h4 class="font-bold text-white">PC & Web</h4>
@@ -361,113 +275,6 @@
     </footer>
 
     <!-- Scripts -->
-    <script>
-        // Loader Animation
-        document.addEventListener('DOMContentLoaded', () => {
-            const text = "Initializing Alfred Games System...";
-            const loaderText = document.getElementById('loader-text');
-            const loaderBar = document.getElementById('loader-bar');
-            const loader = document.getElementById('loader');
-            let i = 0;
-
-            // Typing effect
-            function typeWriter() {
-                if (i < text.length) {
-                    loaderText.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 30);
-                } else {
-                    // Fill bar
-                    anime({
-                        targets: '#loader-bar',
-                        width: '100%',
-                        easing: 'easeInOutQuad',
-                        duration: 800,
-                        complete: function() {
-                            // Fade out loader
-                            anime({
-                                targets: '#loader',
-                                opacity: 0,
-                                duration: 500,
-                                complete: function() {
-                                    loader.style.display = 'none';
-                                    startHeroAnimations();
-                                }
-                            });
-                        }
-                    });
-                }
-            }
-
-            typeWriter();
-        });
-
-        // Hero Animations (Triggered after loader)
-        function startHeroAnimations() {
-            anime({
-                targets: '.hero-elements',
-                opacity: [0, 1],
-                translateY: [20, 0],
-                delay: anime.stagger(200), // delay starts at 500ms then increases by 100ms for each element.
-                easing: 'easeOutExpo',
-                duration: 1500
-            });
-
-            // Animate Floating Icons
-            anime({
-                targets: '.animate-float',
-                translateY: [-20, 20],
-                direction: 'alternate',
-                loop: true,
-                easing: 'easeInOutSine',
-                duration: 3000
-            });
-            
-            anime({
-                targets: '.animate-float-delayed',
-                translateY: [20, -20],
-                direction: 'alternate',
-                loop: true,
-                easing: 'easeInOutSine',
-                duration: 4000
-            });
-        }
-
-        // Score counter animation logic (Simulated)
-        const scoreObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const obj = { score: 0 };
-                    anime({
-                        targets: obj,
-                        score: 12500,
-                        round: 1,
-                        easing: 'linear',
-                        duration: 2000,
-                        update: function() {
-                            const el = document.querySelector('.count-up');
-                            if(el) el.innerHTML = obj.score.toString().padStart(4, '0');
-                        }
-                    });
-                    scoreObserver.unobserve(entry.target);
-                }
-            });
-        });
-
-        const gameSection = document.querySelector('.game-scene');
-        if(gameSection) scoreObserver.observe(gameSection);
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('py-2');
-                nav.classList.remove('p-4');
-            } else {
-                nav.classList.add('p-4');
-                nav.classList.remove('py-2');
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
