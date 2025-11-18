@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alfred Games | AI-Driven Indie Studio</title>
+    
+    <!-- Fonts: Inter for UI, JetBrains Mono for Code/Tech feel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#0B0C10',
+                            gray: '#1F2833',
+                            cyan: '#66FCF1',
+                            teal: '#45A29E',
+                            purple: '#C586C0' // VS Code purple reference
+                        }
+                    },
+                    backgroundImage: {
+                        'grid-pattern': "linear-gradient(to right, #1f2833 1px, transparent 1px), linear-gradient(to bottom, #1f2833 1px, transparent 1px)",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0B0C10;
+            color: #C5C6C7;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0B0C10;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #45A29E;
+            border-radius: 4px;
+        }
+
+        .glass-panel {
+            background: rgba(31, 40, 51, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(102, 252, 241, 0.1);
+        }
+
+        .neon-text {
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.5);
+        }
+        
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: rgba(102, 252, 241, 0.1);
+            opacity: 0.4;
+            animation: scanline 6s linear infinite;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        @keyframes scanline {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        .cursor-blink {
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="antialiased relative selection:bg-brand-cyan selection:text-brand-dark">
+
+    <!-- Scanline Effect -->
+    <div class="scanline"></div>
+
+    <!-- Initial Loader -->
+    <div id="loader" class="fixed inset-0 z-[100] bg-brand-dark flex items-center justify-center flex-col font-mono text-brand-cyan">
+        <div class="text-2xl md:text-4xl font-bold">
+            <span id="loader-text"></span><span class="cursor-blink">_</span>
+        </div>
+        <div class="mt-4 w-64 h-1 bg-brand-gray rounded-full overflow-hidden">
+            <div id="loader-bar" class="h-full bg-brand-cyan w-0"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-40 top-0 transition-all duration-300 p-4" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass-panel rounded-full px-6 py-3">
+            <a href="#" class="text-xl font-bold font-mono tracking-tighter text-white flex items-center gap-2">
+                <i class="ph ph-robot text-brand-cyan text-2xl"></i>
+                ALFRED<span class="text-brand-teal">GAMES</span>
+            </a>
+            <div class="hidden md:flex gap-8 font-mono text-sm text-gray-300">
+                <a href="#philosophy" class="hover:text-brand-cyan transition-colors">./PHILOSOPHY</a>
+                <a href="#games" class="hover:text-brand-cyan transition-colors">./PROJECTS</a>
+                <a href="#contact" class="hover:text-brand-cyan transition-colors">./CONTACT</a>
+            </div>
+            <a href="#games" class="hidden md:block bg-brand-cyan/10 text-brand-cyan border border-brand-cyan px-4 py-1 rounded hover:bg-brand-cyan hover:text-brand-dark transition-all duration-300 font-mono text-sm">
+                PLAY NOW
+            </a>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-brand-cyan text-2xl"><i class="ph ph-list"></i></button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
+        <!-- Background Grid -->
+        <div class="absolute inset-0 bg-grid-pattern bg-[length:40px_40px] opacity-20 z-0 transform perspective-origin-top"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-brand-dark/80 to-brand-dark z-0"></div>
+
+        <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+            <div class="hero-elements opacity-0 translate-y-10">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-purple/10 border border-brand-purple/30 text-brand-purple text-xs font-mono mb-6">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-purple opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-purple"></span>
+                    </span>
+                    AI ASSISTED DEVELOPMENT
+                </div>
+            </div>
+
+            <h1 class="hero-elements opacity-0 translate-y-10 text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tight mb-6 leading-none">
+                CODING THE <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-white to-brand-cyan neon-text">IMAGINATION</span>
+            </h1>
+
+            <p class="hero-elements opacity-0 translate-y-10 text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-light mb-10">
+                One developer. Infinite neural networks. <span class="text-brand-cyan font-mono">Alfred Games</span> blends human creativity with artificial intelligence to craft unique indie experiences.
+            </p>
+
+            <div class="hero-elements opacity-0 translate-y-10 flex flex-col md:flex-row justify-center gap-4">
+                <a href="#games" class="group relative px-8 py-4 bg-brand-cyan text-brand-dark font-bold rounded hover:bg-white transition-all duration-300 overflow-hidden">
+                    <div class="absolute inset-0 w-full h-full bg-white/30 group-hover:translate-x-full transition-transform duration-500 -skew-x-12 -ml-4"></div>
+                    VIEW LATEST RELEASE
+                </a>
+                <a href="#philosophy" class="px-8 py-4 border border-gray-600 text-white rounded hover:border-brand-cyan hover:text-brand-cyan transition-all duration-300 font-mono">
+                    READ THE LOGS
+                </a>
+            </div>
+        </div>
+
+        <!-- Animated Floating Elements (Decorations) -->
+        <i class="ph-fill ph-cpu absolute top-1/4 left-10 text-brand-gray text-6xl opacity-30 animate-float"></i>
+        <i class="ph-fill ph-code absolute bottom-1/3 right-10 text-brand-gray text-6xl opacity-30 animate-float-delayed"></i>
+    </header>
+
+    <!-- Philosophy Section -->
+    <section id="philosophy" class="py-24 relative">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="order-2 md:order-1">
+                    <div class="relative group">
+                        <div class="absolute -inset-2 bg-gradient-to-r from-brand-purple to-brand-cyan rounded-lg blur opacity-25 group-hover:opacity-75 transition duration-1000 group-hover:duration-200"></div>
+                        <div class="relative glass-panel p-8 rounded-lg border border-gray-700">
+                            <div class="flex justify-between items-center mb-6 border-b border-gray-700 pb-4">
+                                <div class="flex gap-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                </div>
+                                <span class="font-mono text-xs text-gray-500">workflow_v2.js</span>
+                            </div>
+                            <div class="font-mono text-sm space-y-2">
+                                <p><span class="text-brand-purple">const</span> <span class="text-yellow-200">studio</span> = {</p>
+                                <p class="pl-4">developer: <span class="text-green-300">"1 Human"</span>,</p>
+                                <p class="pl-4">assistants: <span class="text-green-300">["LLMs", "GenAI", "Unity"]</span>,</p>
+                                <p class="pl-4">goal: <span class="text-green-300">"Efficiency"</span>,</p>
+                                <p class="pl-4">style: <span class="text-green-300">"Unique"</span></p>
+                                <p>}</p>
+                                <p class="text-gray-500">// Accelerating dev cycles by 10x</p>
+                                <p class="text-gray-500">// Focusing purely on gameplay loops</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="order-1 md:order-2 space-y-6">
+                    <h2 class="text-3xl md:text-5xl font-bold">
+                        <span class="text-brand-cyan font-mono">01.</span> SYNTHESIZED DEV
+                    </h2>
+                    <p class="text-gray-400 leading-relaxed">
+                        Alfred Games isn't a massive corporation. It's a single developer leveraging the bleeding edge of Generative AI to punch above its weight class.
+                    </p>
+                    <p class="text-gray-400 leading-relaxed">
+                        From generating assets to optimizing C# scripts in Unity, AI is the co-pilot. This allows for rapid prototyping and focusing on what matters most: <strong class="text-white">Fun.</strong>
+                    </p>
+                    <ul class="space-y-3 mt-4 font-mono text-sm text-brand-teal">
+                        <li class="flex items-center gap-3">
+                            <i class="ph-bold ph-check"></i> AI-Generated Textures & Sprites
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-bold ph-check"></i> Copilot Assisted Coding
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="ph-bold ph-check"></i> Rapid Unity Prototyping
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Game Section: Coin Catcher 2D -->
+    <section id="games" class="py-24 bg-brand-dark relative overflow-hidden">
+        <!-- Background glow -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-cyan rounded-full mix-blend-screen filter blur-[128px] opacity-10 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-6xl font-black text-white mb-4">LATEST RELEASE</h2>
+                <div class="h-1 w-24 bg-brand-cyan mx-auto"></div>
+            </div>
+
+            <div class="glass-panel rounded-2xl overflow-hidden border border-brand-cyan/30 shadow-2xl shadow-brand-cyan/10">
+                <div class="grid grid-cols-1 lg:grid-cols-2">
+                    
+                    <!-- Visual Side (Simulated Game) -->
+                    <div class="relative h-96 lg:h-auto bg-gray-900 flex items-center justify-center overflow-hidden group">
+                        <!-- Animated Background for Game Preview -->
+                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20"></div>
+                        
+                        <!-- Simulated Game Scene -->
+                        <div class="relative z-10 w-full h-full flex items-center justify-center game-scene">
+                            <!-- The Player (Square) -->
+                            <div class="w-12 h-12 bg-brand-cyan absolute bottom-10 left-1/4 shadow-[0_0_20px_rgba(102,252,241,0.8)] animate-bounce"></div>
+                            
+                            <!-- The Coins (Circles) -->
+                            <div class="w-8 h-8 bg-yellow-400 rounded-full absolute top-20 left-1/4 shadow-lg animate-pulse"></div>
+                            <div class="w-8 h-8 bg-yellow-400 rounded-full absolute top-1/3 right-1/3 shadow-lg animate-pulse" style="animation-delay: 0.5s;"></div>
+                            <div class="w-8 h-8 bg-yellow-400 rounded-full absolute bottom-1/3 right-10 shadow-lg animate-pulse" style="animation-delay: 0.2s;"></div>
+                            
+                            <!-- UI Overlay -->
+                            <div class="absolute top-4 left-4 font-mono text-white text-lg">
+                                SCORE: <span class="text-brand-cyan count-up">0000</span>
+                            </div>
+                        </div>
+
+                        <!-- Overlay on Hover -->
+                        <div class="absolute inset-0 bg-brand-dark/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
+                            <button class="bg-brand-cyan text-brand-dark font-bold py-3 px-8 rounded-full transform scale-90 group-hover:scale-100 transition-transform duration-300 shadow-lg hover:shadow-brand-cyan/50 flex items-center gap-2">
+                                <i class="ph-fill ph-play"></i> WATCH TRAILER
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Content Side -->
+                    <div class="p-8 md:p-12 flex flex-col justify-center">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="bg-brand-cyan text-brand-dark text-xs font-bold px-2 py-1 rounded uppercase">Made in Unity</span>
+                            <span class="bg-brand-purple text-white text-xs font-bold px-2 py-1 rounded uppercase">Arcade</span>
+                        </div>
+                        
+                        <h3 class="text-4xl font-bold text-white mb-4">COIN CATCHER 2D</h3>
+                        
+                        <p class="text-gray-400 mb-8 leading-relaxed">
+                            A frantic, fast-paced arcade experience where reflexes are your only currency. Dodge dynamic obstacles, utilize power-ups, and collect as much loot as possible before the timer runs out. 
+                            <br><br>
+                            Generated assets meet tight controls in this retro-modern mashup.
+                        </p>
+
+                        <div class="grid grid-cols-2 gap-6 mb-8">
+                            <div class="flex flex-col">
+                                <i class="ph ph-trophy text-brand-cyan text-2xl mb-2"></i>
+                                <h4 class="font-bold text-white">High Scores</h4>
+                                <p class="text-xs text-gray-500">Global Leaderboards</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <i class="ph ph-lightning text-brand-cyan text-2xl mb-2"></i>
+                                <h4 class="font-bold text-white">Fast Paced</h4>
+                                <p class="text-xs text-gray-500">Zero latency input</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <i class="ph ph-paint-brush text-brand-cyan text-2xl mb-2"></i>
+                                <h4 class="font-bold text-white">AI Art</h4>
+                                <p class="text-xs text-gray-500">Unique aesthetics</p>
+                            </div>
+                            <div class="flex flex-col">
+                                <i class="ph ph-desktop text-brand-cyan text-2xl mb-2"></i>
+                                <h4 class="font-bold text-white">PC & Web</h4>
+                                <p class="text-xs text-gray-500">Play anywhere</p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4">
+                            <button class="flex-1 bg-white text-brand-dark font-bold py-3 rounded hover:bg-gray-200 transition-colors flex justify-center items-center gap-2">
+                                <i class="ph-fill ph-windows-logo"></i> Download
+                            </button>
+                            <button class="flex-1 border border-gray-600 text-white font-bold py-3 rounded hover:border-brand-cyan hover:text-brand-cyan transition-colors flex justify-center items-center gap-2">
+                                <i class="ph-fill ph-globe"></i> Web Demo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter / Contact -->
+    <section id="contact" class="py-24 border-t border-gray-900">
+        <div class="max-w-4xl mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-white mb-6">STAY IN THE LOOP</h2>
+            <p class="text-gray-400 mb-8">Join the Alfred Games neural network. Get updates on Coin Catcher 2D and future AI experiments.</p>
+            
+            <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onsubmit="event.preventDefault();">
+                <input type="email" placeholder="enter_email_address.exe" class="flex-1 bg-brand-gray border border-gray-700 text-white px-6 py-3 rounded focus:outline-none focus:border-brand-cyan font-mono placeholder-gray-600">
+                <button class="bg-brand-purple text-white font-bold px-8 py-3 rounded hover:bg-opacity-80 transition-all shadow-[0_0_15px_rgba(197,134,192,0.4)]">
+                    SUBSCRIBE
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 bg-black text-center border-t border-brand-gray/50">
+        <div class="flex justify-center gap-6 mb-4 text-2xl text-gray-500">
+            <a href="#" class="hover:text-brand-cyan transition-colors"><i class="ph-fill ph-twitter-logo"></i></a>
+            <a href="#" class="hover:text-brand-cyan transition-colors"><i class="ph-fill ph-github-logo"></i></a>
+            <a href="#" class="hover:text-brand-cyan transition-colors"><i class="ph-fill ph-discord-logo"></i></a>
+            <a href="#" class="hover:text-brand-cyan transition-colors"><i class="ph-fill ph-youtube-logo"></i></a>
+        </div>
+        <p class="text-gray-600 font-mono text-xs">
+            © 2024 Alfred Games. Built with <span class="text-brand-purple">Human Heart</span> & <span class="text-brand-cyan">Artificial Intelligence</span>.
+        </p>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Loader Animation
+        document.addEventListener('DOMContentLoaded', () => {
+            const text = "Initializing Alfred Games System...";
+            const loaderText = document.getElementById('loader-text');
+            const loaderBar = document.getElementById('loader-bar');
+            const loader = document.getElementById('loader');
+            let i = 0;
+
+            // Typing effect
+            function typeWriter() {
+                if (i < text.length) {
+                    loaderText.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 30);
+                } else {
+                    // Fill bar
+                    anime({
+                        targets: '#loader-bar',
+                        width: '100%',
+                        easing: 'easeInOutQuad',
+                        duration: 800,
+                        complete: function() {
+                            // Fade out loader
+                            anime({
+                                targets: '#loader',
+                                opacity: 0,
+                                duration: 500,
+                                complete: function() {
+                                    loader.style.display = 'none';
+                                    startHeroAnimations();
+                                }
+                            });
+                        }
+                    });
+                }
+            }
+
+            typeWriter();
+        });
+
+        // Hero Animations (Triggered after loader)
+        function startHeroAnimations() {
+            anime({
+                targets: '.hero-elements',
+                opacity: [0, 1],
+                translateY: [20, 0],
+                delay: anime.stagger(200), // delay starts at 500ms then increases by 100ms for each element.
+                easing: 'easeOutExpo',
+                duration: 1500
+            });
+
+            // Animate Floating Icons
+            anime({
+                targets: '.animate-float',
+                translateY: [-20, 20],
+                direction: 'alternate',
+                loop: true,
+                easing: 'easeInOutSine',
+                duration: 3000
+            });
+            
+            anime({
+                targets: '.animate-float-delayed',
+                translateY: [20, -20],
+                direction: 'alternate',
+                loop: true,
+                easing: 'easeInOutSine',
+                duration: 4000
+            });
+        }
+
+        // Score counter animation logic (Simulated)
+        const scoreObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const obj = { score: 0 };
+                    anime({
+                        targets: obj,
+                        score: 12500,
+                        round: 1,
+                        easing: 'linear',
+                        duration: 2000,
+                        update: function() {
+                            const el = document.querySelector('.count-up');
+                            if(el) el.innerHTML = obj.score.toString().padStart(4, '0');
+                        }
+                    });
+                    scoreObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const gameSection = document.querySelector('.game-scene');
+        if(gameSection) scoreObserver.observe(gameSection);
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2');
+                nav.classList.remove('p-4');
+            } else {
+                nav.classList.add('p-4');
+                nav.classList.remove('py-2');
+            }
+        });
+    </script>
+</body>
+</html>
