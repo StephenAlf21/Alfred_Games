@@ -12,6 +12,35 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Config -->
+    <script>
+        if (window.tailwind) {
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                            mono: ['JetBrains Mono', 'monospace'],
+                        },
+                        colors: {
+                            brand: {
+                                dark: '#0B0C10',
+                                gray: '#1F2833',
+                                cyan: '#66FCF1',
+                                teal: '#45A29E',
+                                purple: '#C586C0' // VS Code purple reference
+                            }
+                        },
+                        backgroundImage: {
+                            'grid-pattern': "linear-gradient(to right, #1f2833 1px, transparent 1px), linear-gradient(to bottom, #1f2833 1px, transparent 1px)",
+                        }
+                    }
+                }
+            };
+        } else {
+            console.warn('Tailwind CDN not loaded yet; config skipped.');
+        }
+    </script>
     
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -22,8 +51,7 @@
 </head>
 <body class="antialiased relative selection:bg-brand-cyan selection:text-brand-dark">
 
-    <!-- Scanline Effect -->
-    <div class="scanline"></div>
+
 
     <!-- Initial Loader -->
     <div id="loader" class="fixed inset-0 z-[100] bg-brand-dark flex items-center justify-center flex-col font-mono text-brand-cyan">
@@ -38,16 +66,16 @@
     <!-- Navigation -->
     <nav class="fixed w-full z-40 top-0 transition-all duration-300 p-4" id="navbar">
         <div class="max-w-7xl mx-auto flex justify-between items-center glass-panel rounded-full px-6 py-3">
-            <a href="#" class="text-xl font-bold font-mono tracking-tighter text-white flex items-center gap-2">
+            <a href="index.html" class="text-xl font-bold font-mono tracking-tighter text-white flex items-center gap-2">
                 <i class="ph ph-robot text-brand-cyan text-2xl"></i>
                 ALFRED<span class="text-brand-teal">GAMES</span>
             </a>
             <div class="hidden md:flex gap-8 font-mono text-sm text-gray-300">
-                <a href="#philosophy" class="hover:text-brand-cyan transition-colors">./PHILOSOPHY</a>
-                <a href="#games" class="hover:text-brand-cyan transition-colors">./PROJECTS</a>
-                <a href="#contact" class="hover:text-brand-cyan transition-colors">./CONTACT</a>
+                <a href="about.html" class="hover:text-brand-cyan transition-colors">About</a>
+                <a href="index.html#games" class="hover:text-brand-cyan transition-colors">Projects</a>
+                <a href="support.html" class="hover:text-brand-cyan transition-colors">Support</a>
             </div>
-            <a href="#games" class="hidden md:block bg-brand-cyan/10 text-brand-cyan border border-brand-cyan px-4 py-1 rounded hover:bg-brand-cyan hover:text-brand-dark transition-all duration-300 font-mono text-sm">
+            <a href="index.html#games" class="hidden md:block bg-brand-cyan/10 text-brand-cyan border border-brand-cyan px-4 py-1 rounded hover:bg-brand-cyan hover:text-brand-dark transition-all duration-300 font-mono text-sm">
                 PLAY NOW
             </a>
             <!-- Mobile Menu Button -->
@@ -158,93 +186,82 @@
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-cyan rounded-full mix-blend-screen filter blur-[128px] opacity-10 pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
+            <div class="text-center mb-8 md:mb-10">
                 <h2 class="text-4xl md:text-6xl font-black text-white mb-4">LATEST RELEASE</h2>
                 <div class="h-1 w-24 bg-brand-cyan mx-auto"></div>
             </div>
 
+            <!-- Game Info Button (separate from card) -->
+            <div class="flex justify-center mb-8">
+                <button id="open-game-info" class="bg-brand-cyan/10 text-brand-cyan border border-brand-cyan px-4 py-2 rounded-full text-xs md:text-sm font-mono flex items-center gap-2 hover:bg-brand-cyan hover:text-brand-dark transition-all duration-300 shadow-[0_0_15px_rgba(102,252,241,0.3)]">
+                    <i class="ph ph-info"></i>
+                    <span>GAME INFO</span>
+                </button>
+            </div>
+
             <div class="glass-panel rounded-2xl overflow-hidden border border-brand-cyan/30 shadow-2xl shadow-brand-cyan/10">
-                <div class="grid grid-cols-1 lg:grid-cols-2">
-                    
-                    <!-- Visual Side (Simulated Game) -->
-                    <div class="relative h-96 lg:h-auto bg-gray-900 flex items-center justify-center overflow-hidden group">
-                        <!-- Animated Background for Game Preview -->
-                        <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-20"></div>
-                        
-                        <!-- Simulated Game Scene -->
-                        <div class="relative z-10 w-full h-full flex items-center justify-center game-scene">
-                            <!-- The Player (Square) -->
-                            <div class="w-12 h-12 bg-brand-cyan absolute bottom-10 left-1/4 shadow-[0_0_20px_rgba(102,252,241,0.8)] animate-bounce"></div>
-                            
-                            <!-- The Coins (Circles) -->
-                            <div class="w-8 h-8 bg-yellow-400 rounded-full absolute top-20 left-1/4 shadow-lg animate-pulse"></div>
-                            <div class="w-8 h-8 bg-yellow-400 rounded-full absolute top-1/3 right-1/3 shadow-lg animate-pulse" style="animation-delay: 0.5s;"></div>
-                            <div class="w-8 h-8 bg-yellow-400 rounded-full absolute bottom-1/3 right-10 shadow-lg animate-pulse" style="animation-delay: 0.2s;"></div>
-                            
-                            <!-- UI Overlay -->
-                            <div class="absolute top-4 left-4 font-mono text-white text-lg">
-                                SCORE: <span class="text-brand-cyan count-up">0000</span>
-                            </div>
-                        </div>
-
-                        <!-- Overlay on Hover -->
-                        <div class="absolute inset-0 bg-brand-dark/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20">
-                            <button class="bg-brand-cyan text-brand-dark font-bold py-3 px-8 rounded-full transform scale-90 group-hover:scale-100 transition-transform duration-300 shadow-lg hover:shadow-brand-cyan/50 flex items-center gap-2">
-                                <i class="ph-fill ph-play"></i> WATCH TRAILER
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Content Side -->
-                    <div class="p-8 md:p-12 flex flex-col justify-center">
-                        <div class="flex items-center gap-2 mb-4">
-                            <span class="bg-brand-cyan text-brand-dark text-xs font-bold px-2 py-1 rounded uppercase">Made in Unity</span>
-                            <span class="bg-brand-purple text-white text-xs font-bold px-2 py-1 rounded uppercase">Arcade</span>
-                        </div>
-                        
-                        <h3 class="text-4xl font-bold text-white mb-4">COIN CATCHER 2D</h3>
-                        
-                        <p class="text-gray-400 mb-8 leading-relaxed">
-                            A frantic, fast-paced arcade experience where reflexes are your only currency. Dodge dynamic obstacles, utilize power-ups, and collect as much loot as possible before the timer runs out. 
-                            <br><br>
-                            Generated assets meet tight controls in this retro-modern mashup.
-                        </p>
-
-                        <div class="grid grid-cols-2 gap-6 mb-8">
-                            <div class="flex flex-col">
-                                <i class="ph ph-trophy text-brand-cyan text-2xl mb-2"></i>
-                                <h4 class="font-bold text-white">High Scores</h4>
-                                <p class="text-xs text-gray-500">Global Leaderboards</p>
-                            </div>
-                            <div class="flex flex-col">
-                                <i class="ph ph-lightning text-brand-cyan text-2xl mb-2"></i>
-                                <h4 class="font-bold text-white">Fast Paced</h4>
-                                <p class="text-xs text-gray-500">Zero latency input</p>
-                            </div>
-                            <div class="flex flex-col">
-                                <i class="ph ph-paint-brush text-brand-cyan text-2xl mb-2"></i>
-                                <h4 class="font-bold text-white">AI Art</h4>
-                                <p class="text-xs text-gray-500">Unique aesthetics</p>                            </div>
-                            <div class="flex flex-col">
-                                <i class="ph ph-desktop text-brand-cyan text-2xl mb-2"></i>
-                                <h4 class="font-bold text-white">PC & Web</h4>
-                                <p class="text-xs text-gray-500">Play anywhere</p>
-                            </div>
-                        </div>
-
-                        <div class="flex gap-4">
-                            <button class="flex-1 bg-white text-brand-dark font-bold py-3 rounded hover:bg-gray-200 transition-colors flex justify-center items-center gap-2">
-                                <i class="ph-fill ph-windows-logo"></i> Download
-                            </button>
-                            <button class="flex-1 border border-gray-600 text-white font-bold py-3 rounded hover:border-brand-cyan hover:text-brand-cyan transition-colors flex justify-center items-center gap-2">
-                                <i class="ph-fill ph-globe"></i> Web Demo
-                            </button>
-                        </div>
-                    </div>
+                <!-- Visual Side Only: Full Card Video -->
+                <div class="relative w-full aspect-video bg-gray-900 overflow-hidden group">
+                    <video class="w-full h-full object-contain bg-black" controls>
+                        <source src="Coin Catcher v0.18.4.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Game Info Modal -->
+    <div id="game-info-modal" class="fixed inset-0 z-[90] bg-black/70 hidden items-center justify-end pr-4 md:pr-12">
+        <div id="game-info-panel" class="relative max-w-lg w-full mx-4 glass-panel rounded-2xl border border-brand-cyan/40 p-6 md:p-8">
+            <button id="close-game-info" class="absolute -top-10 right-0 text-white text-2xl">&times;</button>
+
+            <div class="flex items-center gap-2 mb-4">
+                <span class="bg-brand-cyan text-brand-dark text-xs font-bold px-2 py-1 rounded uppercase">Made in Unity</span>
+                <span class="bg-brand-purple text-white text-xs font-bold px-2 py-1 rounded uppercase">Arcade</span>
+            </div>
+            
+            <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">COIN CATCHER 2D</h3>
+            
+            <p class="text-gray-400 mb-8 leading-relaxed">
+                A frantic, fast-paced arcade experience where reflexes are your only currency. Dodge dynamic obstacles, utilize power-ups, and collect as much loot as possible before the timer runs out. 
+                <br><br>
+                Please provide a new description based on the video.
+            </p>
+
+            <div class="grid grid-cols-2 gap-6 mb-8">
+                <div class="flex flex-col">
+                    <i class="ph ph-trophy text-brand-cyan text-2xl mb-2"></i>
+                    <h4 class="font-bold text-white">High Scores</h4>
+                    <p class="text-xs text-gray-500">Global Leaderboards</p>
+                </div>
+                <div class="flex flex-col">
+                    <i class="ph ph-lightning text-brand-cyan text-2xl mb-2"></i>
+                    <h4 class="font-bold text-white">Fast Paced</h4>
+                    <p class="text-xs text-gray-500">Zero latency input</p>
+                </div>
+                <div class="flex flex-col">
+                    <i class="ph ph-paint-brush text-brand-cyan text-2xl mb-2"></i>
+                    <h4 class="font-bold text-white">AI Art</h4>
+                    <p class="text-xs text-gray-500">Unique aesthetics</p>
+                </div>
+                <div class="flex flex-col">
+                    <i class="ph ph-desktop text-brand-cyan text-2xl mb-2"></i>
+                    <h4 class="font-bold text-white">PC & Web</h4>
+                    <p class="text-xs text-gray-500">Play anywhere</p>
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+                <button class="flex-1 bg-white text-brand-dark font-bold py-3 rounded hover:bg-gray-200 transition-colors flex justify-center items-center gap-2">
+                    <i class="ph-fill ph-windows-logo"></i> Download
+                </button>
+                <button class="flex-1 border border-gray-600 text-white font-bold py-3 rounded hover:border-brand-cyan hover:text-brand-cyan transition-colors flex justify-center items-center gap-2">
+                    <i class="ph-fill ph-globe"></i> Web Demo
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- Newsletter / Contact -->
     <section id="contact" class="py-24 border-t border-gray-900">
@@ -261,8 +278,107 @@
         </div>
     </section>
 
+    <!-- Social Footer -->
+    <footer class="py-12 bg-black border-t border-brand-gray/50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid gap-10 md:grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_minmax(0,2fr)] items-start mb-10">
+                <!-- Brand / Studio -->
+                <div>
+                    <div class="flex items-center justify-center md:justify-start gap-2 mb-3">
+                        <i class="ph ph-robot text-brand-cyan text-2xl"></i>
+                        <span class="font-mono font-bold text-white tracking-tight">ALFRED<span class="text-brand-teal">GAMES</span></span>
+                    </div>
+                    <p class="text-gray-500 text-sm text-center md:text-left max-w-md">
+                        A one-human, AI-augmented indie studio focused on tight arcade loops, rapid prototyping, and unique experiments.
+                    </p>
+                    <p class="text-gray-500 font-mono text-[0.7rem] mt-3 text-center md:text-left">
+                        Credits: Stephen (dev), GPT-5, GPT-5.1, Gemini 2.5 Pro, Suno V5.
+                    </p>
+                </div>
+
+                <!-- Site Links -->
+                <div class="text-center md:text-left">
+                    <h4 class="text-xs font-mono tracking-[0.2em] text-gray-400 uppercase mb-4">Navigation</h4>
+                    <ul class="space-y-2 text-sm text-gray-300">
+                        <li><a href="about.html" class="hover:text-brand-cyan transition-colors">About</a></li>
+                        <li><a href="index.html#games" class="hover:text-brand-cyan transition-colors">Projects</a></li>
+                        <li><a href="support.html" class="hover:text-brand-cyan transition-colors">Support</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social heading (reuses icon row below) -->
+                <div class="text-center md:text-right">
+                    <h4 class="text-xs font-mono tracking-[0.2em] text-gray-400 uppercase mb-4">Social</h4>
+                    <p class="text-gray-500 text-xs md:text-sm">
+                        Follow along for devlogs, experiments, and releases.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 md:gap-6 justify-items-center md:justify-items-end mb-8 max-w-md ml-auto">
+                <!-- YouTube -->
+                <a href="https://www.youtube.com/@zombes1892" target="_blank" rel="noopener noreferrer"
+                   class="group flex items-center gap-2 px-3 py-2 rounded-full bg-brand-gray/70 border border-gray-700 hover:border-brand-cyan hover:bg-brand-gray transition-colors">
+                    <span class="flex h-6 w-6 items-center justify-center">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/youtube.svg" alt="YouTube" class="h-5 w-5" loading="lazy">
+                    </span>
+                    <span class="hidden sm:inline text-xs font-mono text-gray-300 group-hover:text-white">YouTube</span>
+                </a>
+
+                <!-- Facebook -->
+                <a href="https://www.facebook.com/PaddleBall3D" target="_blank" rel="noopener noreferrer"
+                   class="group flex items-center gap-2 px-3 py-2 rounded-full bg-brand-gray/70 border border-gray-700 hover:border-brand-cyan hover:bg-brand-gray transition-colors">
+                    <span class="flex h-6 w-6 items-center justify-center">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/facebook.svg" alt="Facebook" class="h-5 w-5" loading="lazy">
+                    </span>
+                    <span class="hidden sm:inline text-xs font-mono text-gray-300 group-hover:text-white">Facebook</span>
+                </a>
+
+                <!-- Instagram -->
+                <a href="https://www.instagram.com/zombiessteve/" target="_blank" rel="noopener noreferrer"
+                   class="group flex items-center gap-2 px-3 py-2 rounded-full bg-brand-gray/70 border border-gray-700 hover:border-brand-cyan hover:bg-brand-gray transition-colors">
+                    <span class="flex h-6 w-6 items-center justify-center">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/instagram.svg" alt="Instagram" class="h-5 w-5" loading="lazy">
+                    </span>
+                    <span class="hidden sm:inline text-xs font-mono text-gray-300 group-hover:text-white">Instagram</span>
+                </a>
+
+                <!-- X (Twitter) -->
+                <a href="https://x.com/Zombes18" target="_blank" rel="noopener noreferrer"
+                   class="group flex items-center gap-2 px-3 py-2 rounded-full bg-brand-gray/70 border border-gray-700 hover:border-brand-cyan hover:bg-brand-gray transition-colors">
+                    <span class="flex h-6 w-6 items-center justify-center">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/x.svg" alt="X" class="h-5 w-5" loading="lazy">
+                    </span>
+                    <span class="hidden sm:inline text-xs font-mono text-gray-300 group-hover:text-white">X</span>
+                </a>
+
+                <!-- Bluesky -->
+                <a href="https://bsky.app/profile/zombes18.bsky.social" target="_blank" rel="noopener noreferrer"
+                   class="group flex items-center gap-2 px-3 py-2 rounded-full bg-brand-gray/70 border border-gray-700 hover:border-brand-cyan hover:bg-brand-gray transition-colors">
+                    <span class="flex h-6 w-6 items-center justify-center">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/bluesky.svg" alt="Bluesky" class="h-5 w-5" loading="lazy">
+                    </span>
+                    <span class="hidden sm:inline text-xs font-mono text-gray-300 group-hover:text-white">Bluesky</span>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/StephenAlf21/Alfred_Games" target="_blank" rel="noopener noreferrer"
+                   class="group flex items-center gap-2 px-3 py-2 rounded-full bg-brand-gray/70 border border-gray-700 hover:border-brand-cyan hover:bg-brand-gray transition-colors">
+                    <span class="flex h-6 w-6 items-center justify-center">
+                        <img src="https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/github.svg" alt="GitHub" class="h-5 w-5" loading="lazy">
+                    </span>
+                    <span class="hidden sm:inline text-xs font-mono text-gray-300 group-hover:text-white">GitHub</span>
+                </a>
+            </div>
+
+            <p class="text-gray-600 font-mono text-xs">
+                © 2024 Alfred Games. Built with <span class="text-brand-purple">Human Heart</span> &amp; <span class="text-brand-cyan">Artificial Intelligence</span>.
+            </p>
+        </div>
+    </footer>
+
     <!-- Footer -->
-    <footer class="py-8 bg-black text-center border-t border-brand-gray/50">
+    <footer class="py-8 bg-black text-center border-t border-brand-gray/50 hidden">
         <div class="flex justify-center gap-6 mb-4 text-2xl text-gray-500">
             <a href="#" class="hover:text-brand-cyan transition-colors"><i class="ph-fill ph-twitter-logo"></i></a>
             <a href="#" class="hover:text-brand-cyan transition-colors"><i class="ph-fill ph-github-logo"></i></a>
@@ -273,6 +389,19 @@
             © 2024 Alfred Games. Built with <span class="text-brand-purple">Human Heart</span> & <span class="text-brand-cyan">Artificial Intelligence</span>.
         </p>
     </footer>
+
+    <!-- Video Modal -->
+    <div id="video-modal" class="fixed inset-0 z-[100] bg-black/80 hidden flex items-center justify-center">
+        <div class="relative w-full max-w-5xl px-4">
+            <button id="close-modal-btn" class="absolute -top-10 right-4 text-white text-2xl">&times;</button>
+            <div class="relative w-full aspect-video bg-black rounded-xl shadow-2xl overflow-hidden">
+                <video id="trailer-video" class="w-full h-full object-contain" controls>
+                    <source src="Coin Catcher v0.18.4.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="script.js"></script>

@@ -26,18 +26,7 @@ body {
             text-shadow: 0 0 10px rgba(102, 252, 241, 0.5);
         }
         
-        .scanline {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 10px;
-            background: rgba(102, 252, 241, 0.1);
-            opacity: 0.4;
-            animation: scanline 6s linear infinite;
-            pointer-events: none;
-            z-index: 50;
-        }
+        
 
         @keyframes scanline {
             0% { top: -10%; }
@@ -80,4 +69,23 @@ body {
         @keyframes float-delayed {
             0% { transform: translateY(20px); }
             100% { transform: translateY(-20px); }
+        }
+
+        /* Game info modal animations */
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes panelSlideInRight {
+            from { transform: translateX(40px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        .modal-fade-in {
+            animation: modalFadeIn 0.25s ease-out;
+        }
+
+        .panel-slide-in-right {
+            animation: panelSlideInRight 0.3s ease-out;
         }

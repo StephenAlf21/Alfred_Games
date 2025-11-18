@@ -64,3 +64,52 @@ window.addEventListener('scroll', () => {
         nav.classList.remove('py-2');
     }
 });
+
+// Game Info Modal logic
+const openGameInfoBtn = document.getElementById('open-game-info');
+const gameInfoModal = document.getElementById('game-info-modal');
+const gameInfoPanel = document.getElementById('game-info-panel');
+const closeGameInfoBtn = document.getElementById('close-game-info');
+
+if (openGameInfoBtn && gameInfoModal && closeGameInfoBtn && gameInfoPanel) {
+    const openGameInfo = () => {
+        gameInfoModal.classList.remove('hidden');
+        gameInfoModal.classList.add('flex');
+
+        // Trigger fade/slide animations
+        gameInfoModal.classList.add('modal-fade-in');
+        gameInfoPanel.classList.add('panel-slide-in-right');
+
+        gameInfoModal.addEventListener('animationend', () => {
+            gameInfoModal.classList.remove('modal-fade-in');
+        }, { once: true });
+
+        gameInfoPanel.addEventListener('animationend', () => {
+            gameInfoPanel.classList.remove('panel-slide-in-right');
+        }, { once: true });
+    };
+
+    const closeGameInfo = () => {
+        gameInfoModal.classList.remove('modal-fade-in');
+        gameInfoPanel.classList.remove('panel-slide-in-right');
+        gameInfoModal.classList.add('hidden');
+        gameInfoModal.classList.remove('flex');
+    };
+
+    openGameInfoBtn.addEventListener('click', openGameInfo);
+    closeGameInfoBtn.addEventListener('click', closeGameInfo);
+
+    // Close when clicking backdrop
+    gameInfoModal.addEventListener('click', (e) => {
+        if (e.target === gameInfoModal) {
+            closeGameInfo();
+        }
+    });
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !gameInfoModal.classList.contains('hidden')) {
+            closeGameInfo();
+        }
+    });
+}
