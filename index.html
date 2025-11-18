@@ -12,38 +12,41 @@
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind Config -->
+    <script>
+        if (window.tailwind) {
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ['Inter', 'sans-serif'],
+                            mono: ['JetBrains Mono', 'monospace'],
+                        },
+                        colors: {
+                            brand: {
+                                dark: '#0B0C10',
+                                gray: '#1F2833',
+                                cyan: '#66FCF1',
+                                teal: '#45A29E',
+                                purple: '#C586C0' // VS Code purple reference
+                            }
+                        },
+                        backgroundImage: {
+                            'grid-pattern': "linear-gradient(to right, #1f2833 1px, transparent 1px), linear-gradient(to bottom, #1f2833 1px, transparent 1px)",
+                        }
+                    }
+                }
+            };
+        } else {
+            console.warn('Tailwind CDN not loaded yet; config skipped.');
+        }
+    </script>
     
     <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
     <!-- Anime.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-
-    <!-- Tailwind Config -->
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        mono: ['JetBrains Mono', 'monospace'],
-                    },
-                    colors: {
-                        brand: {
-                            dark: '#0B0C10',
-                            gray: '#1F2833',
-                            cyan: '#66FCF1',
-                            teal: '#45A29E',
-                            purple: '#C586C0' // VS Code purple reference
-                        }
-                    },
-                    backgroundImage: {
-                        'grid-pattern': "linear-gradient(to right, #1f2833 1px, transparent 1px), linear-gradient(to bottom, #1f2833 1px, transparent 1px)",
-                    }
-                }
-            }
-        }
-    </script>
 
     <style>
         body {
