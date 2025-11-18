@@ -107,6 +107,15 @@ body {
     opacity: 0.3;
 }
 
+.timeline-line {
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #00f0ff, #bc13fe);
+}
+
 .cursor-blink {
     animation: blink 1s step-end infinite;
 }

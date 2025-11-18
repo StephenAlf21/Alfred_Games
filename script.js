@@ -1,9 +1,12 @@
 // Loader Animation
 document.addEventListener('DOMContentLoaded', () => {
-    const text = "Initializing Alfred Games System...";
     const loaderText = document.getElementById('loader-text');
     const loaderBar = document.getElementById('loader-bar');
     const loader = document.getElementById('loader');
+    const wrapper = loaderText ? loaderText.parentElement : null;
+    const text =
+        (wrapper && wrapper.getAttribute('data-text')) ||
+        "Initializing Alfred Games System...";
     let i = 0;
 
     function hideLoader() {

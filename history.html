@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Support | Alfred Games</title>
+    <title>History | Alfred Games</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     
-    <!-- Favicon -->
     <link rel="icon" type="image/png" href="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3ae.png">
-    
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Tailwind Config -->
+    
+    <!-- Tailwind Config (V2) -->
     <script>
         if (window.tailwind) {
             tailwind.config = {
@@ -29,24 +29,18 @@
                             brand: {
                                 dark: '#050505',
                                 panel: '#0f1115',
-                                gray: '#1F2833',
                                 cyan: '#00f0ff',
                                 teal: '#45A29E',
                                 purple: '#bc13fe',
                                 yellow: '#fceebb'
                             }
                         },
-                        backgroundImage: {
-                            'grid-pattern': "linear-gradient(to right, #1f2833 1px, transparent 1px), linear-gradient(to bottom, #1f2833 1px, transparent 1px)"
-                        },
                         animation: {
-                            'spin-slow': 'spin 12s linear infinite'
+                            'spin-slow': 'spin 12s linear infinite',
                         }
                     }
                 }
             };
-        } else {
-            console.warn('Tailwind CDN not loaded yet; config skipped.');
         }
     </script>
     
@@ -65,8 +59,8 @@
 
     <!-- Initial Loader -->
     <div id="loader" class="fixed inset-0 z-[100] bg-brand-dark flex items-center justify-center flex-col font-mono text-brand-cyan">
-        <div class="text-2xl md:text-4xl font-bold tracking-widest glitch-wrapper" data-text="INITIALIZING SUPPORT...">
-            <span id="loader-text"></span><span class="cursor-blink">_</span>
+        <div class="text-2xl md:text-4xl font-bold tracking-widest glitch-wrapper" data-text="DECRYPTING LOGS...">
+            <span id="loader-text"></span><span class="animate-pulse">_</span>
         </div>
         <div class="mt-6 w-64 h-0.5 bg-gray-800 relative overflow-hidden">
             <div id="loader-bar" class="absolute left-0 top-0 h-full bg-brand-cyan w-0 shadow-[0_0_10px_#00f0ff]"></div>
@@ -93,11 +87,11 @@
                     <i class="ph ph-game-controller text-brand-cyan text-sm"></i>
                     <span>GAMES</span>
                 </a>
-                <a href="history.html" class="hover:text-white hover:neon-text-cyan transition-all duration-300 flex items-center gap-2">
+                <a href="history.html" class="text-white neon-text-cyan transition-all duration-300 flex items-center gap-2">
                     <i class="ph ph-buildings text-brand-cyan text-sm"></i>
                     <span>HISTORY</span>
                 </a>
-                <a href="#contact" class="text-white neon-text-cyan transition-all duration-300 flex items-center gap-2">
+                <a href="support.html#contact" class="hover:text-white hover:neon-text-cyan transition-all duration-300 flex items-center gap-2">
                     <i class="ph ph-life-buoy text-brand-cyan text-sm"></i>
                     <span>SUPPORT</span>
                 </a>
@@ -132,7 +126,7 @@
             <i class="ph ph-buildings text-brand-cyan"></i>
             <span>HISTORY</span>
         </a>
-        <a href="#contact" class="mobile-link text-2xl font-mono font-bold text-white hover:text-brand-cyan flex items-center gap-3">
+        <a href="support.html#contact" class="mobile-link text-2xl font-mono font-bold text-white hover:text-brand-cyan flex items-center gap-3">
             <i class="ph ph-life-buoy text-brand-cyan"></i>
             <span>SUPPORT</span>
         </a>
@@ -151,186 +145,112 @@
             <!-- Header -->
             <div class="mb-16 hero-elements opacity-0 translate-y-10">
                 <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-brand-panel border border-brand-purple/30 text-brand-purple text-xs font-mono mb-6 shadow-[0_0_15px_rgba(188,19,254,0.15)]">
-                    <i class="ph-fill ph-life-buoy animate-spin-slow"></i>
-                    <span>GET IN TOUCH</span>
+                    <i class="ph-fill ph-clock-counter-clockwise animate-spin-slow"></i>
+                    <span>CHRONICLES & CHANGELOGS</span>
                 </div>
                 <h1 class="text-5xl md:text-7xl font-black text-white tracking-tighter mb-4">
-                    CONTACT <br>
-                    <span class="glitch-wrapper text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-white neon-text-cyan" data-text="&amp; SUPPORT">&amp; SUPPORT</span>
+                    STUDIO <br>
+                    <span class="glitch-wrapper text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-white neon-text-cyan" data-text="HISTORY">HISTORY</span>
                 </h1>
+                <p class="text-gray-400 max-w-2xl text-lg leading-relaxed">
+                    Tracing the evolution of Alfred Games from the first line of code to the latest AI-driven experiment.
+                </p>
             </div>
 
-            <div class="grid gap-12 lg:grid-cols-[1.4fr_1.6fr] items-start">
+            <div class="grid gap-12 lg:grid-cols-[1.5fr_1.3fr] items-start">
                 
-                <!-- Left Column: Info -->
-                <div class="space-y-8 hero-elements opacity-0 translate-y-10">
-                    <!-- Support Types -->
-                    <div class="glass-panel rounded-xl border border-gray-700/50 p-8 group hover:border-brand-cyan/30 transition-colors">
-                        <h2 class="font-mono text-xs text-brand-cyan tracking-[0.2em] uppercase mb-6 flex items-center gap-2">
-                            <i class="ph-bold ph-sliders-horizontal"></i> Support Channels
-                        </h2>
-                        <ul class="space-y-6">
-                            <li class="flex gap-4">
-                                <div class="w-10 h-10 rounded bg-brand-panel border border-brand-purple/30 flex items-center justify-center text-brand-purple shrink-0">
-                                    <i class="ph-fill ph-bug text-xl"></i>
+                <!-- Timeline Column -->
+                <div class="relative pl-8 hero-elements opacity-0 translate-y-10">
+                    <div class="timeline-line"></div>
+                    
+                    <div class="space-y-12">
+                        <!-- Timeline Item 1 -->
+                        <div class="relative pl-8 group">
+                            <div class="absolute left-[-25px] top-1 w-4 h-4 rounded-full bg-brand-dark border-2 border-brand-cyan shadow-[0_0_10px_#00f0ff] z-10 group-hover:scale-125 transition-transform"></div>
+                            <div class="glass-panel p-6 rounded-xl border border-gray-700/50 hover:border-brand-cyan/50 transition-colors">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-bold text-white">Studio Inception</h3>
+                                    <span class="text-xs font-mono text-brand-cyan border border-brand-cyan/30 px-2 py-1 rounded bg-brand-cyan/10">2023</span>
                                 </div>
-                                <div>
-                                    <p class="font-bold text-white font-mono text-sm">Bug Reports</p>
-                                    <p class="text-gray-500 text-xs mt-1 leading-relaxed">Found something broken in Coin Catcher 2D? Share your platform, version, and steps to reproduce.</p>
-                                </div>
-                            </li>
-                            <li class="flex gap-4">
-                                <div class="w-10 h-10 rounded bg-brand-panel border border-brand-cyan/30 flex items-center justify-center text-brand-cyan shrink-0">
-                                    <i class="ph-fill ph-lightbulb text-xl"></i>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-white font-mono text-sm">Feature Requests</p>
-                                    <p class="text-gray-500 text-xs mt-1 leading-relaxed">Have an idea for a power-up, mode, or quality-of-life tweak? Pitch it here.</p>
-                                </div>
-                            </li>
-                            <li class="flex gap-4">
-                                <div class="w-10 h-10 rounded bg-brand-panel border border-brand-teal/30 flex items-center justify-center text-brand-teal shrink-0">
-                                    <i class="ph-fill ph-heart text-xl"></i>
-                                </div>
-                                <div>
-                                    <p class="font-bold text-white font-mono text-sm">General Feedback</p>
-                                    <p class="text-gray-500 text-xs mt-1 leading-relaxed">Thoughts on pacing, difficulty, aesthetics, or anything else to refine future updates.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Direct Contact -->
-                    <div class="glass-panel rounded-xl border border-gray-700/50 p-8">
-                        <h2 class="font-mono text-xs text-brand-cyan tracking-[0.2em] uppercase mb-4">Direct Link</h2>
-                        <p class="text-gray-400 text-sm mb-4">
-                            Prefer to reach out directly? You can ping the studio via:
-                        </p>
-                        <ul class="space-y-3 text-sm text-gray-300 font-mono">
-                            <li class="flex items-center gap-3 p-3 bg-brand-panel rounded border border-gray-800 hover:border-brand-cyan transition-colors">
-                                <i class="ph-fill ph-envelope-simple text-brand-cyan"></i>
-                                <span>support@alfredgames.dev</span>
-                            </li>
-                            <li class="flex items-center gap-3 p-3 bg-brand-panel rounded border border-gray-800 hover:border-brand-purple transition-colors">
-                                <i class="ph-fill ph-discord-logo text-brand-purple"></i>
-                                <span>Discord Community</span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Right Column: Form -->
-                <div class="hero-elements opacity-0 translate-y-10">
-                    <div class="glass-panel rounded-xl border border-gray-700/50 p-8 md:p-10 relative overflow-hidden">
-                        <!-- Form Decoration -->
-                        <div class="absolute top-0 right-0 p-4 opacity-5 text-white">
-                            <i class="ph-fill ph-paper-plane-tilt text-9xl"></i>
+                                <p class="text-gray-400 text-sm leading-relaxed">
+                                    The concept of Alfred Games was initialized. The goal: leverage emerging Generative AI tools to empower a solo developer to create assets and code at a scale previously impossible.
+                                </p>
+                            </div>
                         </div>
 
-                        <h2 class="font-mono text-xs text-brand-cyan tracking-[0.2em] uppercase mb-4">Submit a Ticket</h2>
-                        <p class="text-gray-400 text-sm mb-8 max-w-md">
-                            Fill out the details below. This form communicates directly with our internal tracking systems.
-                        </p>
+                        <!-- Timeline Item 2 -->
+                        <div class="relative pl-8 group">
+                            <div class="absolute left-[-25px] top-1 w-4 h-4 rounded-full bg-brand-dark border-2 border-brand-purple shadow-[0_0_10px_#bc13fe] z-10 group-hover:scale-125 transition-transform"></div>
+                            <div class="glass-panel p-6 rounded-xl border border-gray-700/50 hover:border-brand-purple/50 transition-colors">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-bold text-white">First Prototype</h3>
+                                    <span class="text-xs font-mono text-brand-purple border border-brand-purple/30 px-2 py-1 rounded bg-brand-purple/10">Early 2024</span>
+                                </div>
+                                <p class="text-gray-400 text-sm leading-relaxed">
+                                    "Project: Genesis" (later scrapped) served as the testbed for the AI-assisted workflow. Lessons learned here about Unity integration and prompt engineering paved the way for future titles.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 3 -->
+                        <div class="relative pl-8 group">
+                            <div class="absolute left-[-25px] top-1 w-4 h-4 rounded-full bg-brand-dark border-2 border-white shadow-[0_0_10px_white] z-10 group-hover:scale-125 transition-transform"></div>
+                            <div class="glass-panel p-6 rounded-xl border border-gray-700/50 hover:border-white/50 transition-colors">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-bold text-white">Coin Catcher 2D</h3>
+                                    <span class="text-xs font-mono text-white border border-white/30 px-2 py-1 rounded bg-white/10">Present</span>
+                                </div>
+                                <p class="text-gray-400 text-sm leading-relaxed">
+                                    The first public release. A refined arcade experience demonstrating the viability of the tech stack. Features 100% AI-generated art and extensive AI-assisted C# scripting.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar: Behind the Scenes -->
+                <div class="hero-elements opacity-0 translate-y-10" style="animation-delay: 200ms;">
+                    <div class="glass-panel rounded-xl border border-gray-700/50 p-8 sticky top-32">
+                        <h2 class="font-mono text-xs text-brand-cyan tracking-[0.2em] uppercase mb-6 flex items-center gap-2">
+                            <i class="ph-bold ph-terminal-window"></i> Dev Reflections
+                        </h2>
                         
-                        <form class="space-y-6" onsubmit="event.preventDefault();">
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div class="space-y-2">
-                                    <label class="block text-[10px] font-mono text-brand-cyan uppercase tracking-wider">Identify As</label>
-                                    <div class="relative">
-                                        <i class="ph ph-user absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
-                                        <input type="text" class="w-full bg-brand-panel border border-gray-700 text-white pl-10 pr-4 py-3 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono text-sm placeholder-gray-700 transition-all" placeholder="Player_One">
-                                    </div>
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="block text-[10px] font-mono text-brand-cyan uppercase tracking-wider">Return Address</label>
-                                    <div class="relative">
-                                        <i class="ph ph-at absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
-                                        <input type="email" class="w-full bg-brand-panel border border-gray-700 text-white pl-10 pr-4 py-3 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono text-sm placeholder-gray-700 transition-all" placeholder="email@domain.net">
-                                    </div>
-                                </div>
+                        <div class="space-y-6">
+                            <div>
+                                <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2">
+                                    <i class="ph-fill ph-cpu text-brand-purple"></i> The AI Shift
+                                </h4>
+                                <p class="text-gray-500 text-xs leading-relaxed">
+                                    Moving from traditional asset creation to generative pipelines reduced iteration time by approximately 80%. This allows for more focus on "game feel" rather than pixel pushing.
+                                </p>
+                            </div>
+                            
+                            <div class="w-full h-px bg-gray-800"></div>
+
+                            <div>
+                                <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2">
+                                    <i class="ph-fill ph-code text-brand-teal"></i> Code Architecture
+                                </h4>
+                                <p class="text-gray-500 text-xs leading-relaxed">
+                                    Adopting a modular, component-based architecture in Unity proved crucial. It allows AI assistants to write self-contained scripts that plug into the larger system without breaking existing logic.
+                                </p>
                             </div>
 
-                            <div class="grid md:grid-cols-2 gap-6">
-                                <div class="space-y-2">
-                                    <label class="block text-[10px] font-mono text-brand-cyan uppercase tracking-wider">Category</label>
-                                    <div class="relative">
-                                        <i class="ph ph-tag absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
-                                        <select class="w-full bg-brand-panel border border-gray-700 text-white pl-10 pr-4 py-3 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono text-sm appearance-none cursor-pointer">
-                                            <option>Bug Report</option>
-                                            <option>Feature Request</option>
-                                            <option>General Feedback</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="space-y-2">
-                                    <label class="block text-[10px] font-mono text-brand-cyan uppercase tracking-wider">Priority</label>
-                                    <div class="relative">
-                                        <i class="ph ph-warning-circle absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
-                                        <select class="w-full bg-brand-panel border border-gray-700 text-white pl-10 pr-4 py-3 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono text-sm appearance-none cursor-pointer">
-                                            <option>Normal</option>
-                                            <option>High</option>
-                                            <option>Critical</option>
-                                        </select>
-                                    </div>
-                                </div>
+                            <div class="w-full h-px bg-gray-800"></div>
+                            
+                            <div class="p-4 bg-brand-panel rounded border border-gray-800">
+                                <p class="text-gray-400 text-xs italic font-mono">
+                                    "History isn't just what happened, it's the data we use to train the next iteration."
+                                </p>
                             </div>
-
-                            <div class="space-y-2">
-                                <label class="block text-[10px] font-mono text-brand-cyan uppercase tracking-wider">Subject</label>
-                                <div class="relative">
-                                    <i class="ph ph-chat-circle-dots absolute left-3 top-1/2 -translate-y-1/2 text-gray-600"></i>
-                                    <input type="text" class="w-full bg-brand-panel border border-gray-700 text-white pl-10 pr-4 py-3 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono text-sm placeholder-gray-700 transition-all" placeholder="Short summary">
-                                </div>
-                            </div>
-
-                            <div class="space-y-2">
-                                <label class="block text-[10px] font-mono text-brand-cyan uppercase tracking-wider">Detailed Log</label>
-                                <div class="relative">
-                                    <textarea class="w-full bg-brand-panel border border-gray-700 text-white px-4 py-3 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono text-sm placeholder-gray-700 transition-all min-h-[140px]" placeholder="Include platform, build version, and steps to reproduce if reporting a bug."></textarea>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-gray-800">
-                                <div class="flex items-center gap-2 text-xs text-gray-500 font-mono">
-                                    <i class="ph ph-lock-key-open text-brand-cyan"></i>
-                                    <span>Data used only for support context.</span>
-                                </div>
-                                <button class="inline-flex items-center justify-center gap-2 bg-brand-cyan text-brand-dark font-bold px-6 py-3 rounded hover:bg-white transition-all duration-300 shadow-[0_0_15px_rgba(0,240,255,0.3)]">
-                                    <i class="ph-fill ph-paper-plane-tilt"></i>
-                                    <span>SEND PACKET</span>
-                                </button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Initialize Connection / Newsletter -->
-        <section id="contact" class="py-32 relative overflow-hidden">
-            <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-                <div class="inline-block mb-6 p-4 rounded-full bg-brand-panel border border-gray-800">
-                    <i class="ph-duotone ph-paper-plane-tilt text-4xl text-white"></i>
-                </div>
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">INITIALIZE CONNECTION</h2>
-                <p class="text-gray-400 mb-10 max-w-xl mx-auto">
-                    Subscribe to the Alfred Games neural network to receive occasional packets about new builds, support updates, and devlogs.
-                </p>
-                
-                <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto" onsubmit="event.preventDefault(); alert('Subscribed to the network.');">
-                    <div class="relative flex-1">
-                        <i class="ph ph-envelope-simple absolute left-4 top-1/2 -translate-y-1/2 text-gray-500"></i>
-                        <input type="email" placeholder="user@domain.net" class="w-full bg-brand-panel border border-gray-700 text-white pl-12 pr-6 py-4 rounded focus:outline-none focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan font-mono placeholder-gray-600 transition-all">
-                    </div>
-                    <button class="bg-brand-purple text-white font-bold px-8 py-4 rounded hover:bg-opacity-90 transition-all shadow-[0_0_20px_rgba(188,19,254,0.3)] hover:shadow-[0_0_30px_rgba(188,19,254,0.5)] whitespace-nowrap">
-                        EXECUTE
-                    </button>
-                </form>
             </div>
         </section>
     </main>
 
-    <!-- Footer (same structure as index) -->
+    <!-- Footer (copied from games/about for consistency) -->
     <footer class="relative z-10 bg-black border-t border-gray-900">
         <div class="max-w-7xl mx-auto px-4 py-12 space-y-10">
             <div class="grid gap-10 md:grid-cols-[minmax(0,2fr)_minmax(0,1.2fr)_minmax(0,2fr)] items-start">
@@ -427,7 +347,7 @@
 
             <div class="flex flex-col md:flex-row items-center justify-between gap-4 border-t border-gray-900 pt-6">
                 <p class="text-gray-600 font-mono text-[11px]">
-                    ALFRED GAMES STUDIO &copy; 2024 • Crafted in Unity &amp; Tailwind
+                    ALFRED GAMES STUDIO &copy; 2024 ���?��� Crafted in Unity &amp; Tailwind
                 </p>
                 <p class="text-gray-700 font-mono text-[10px] uppercase tracking-[0.2em]">
                     No cookies. No tracking. Just code.
